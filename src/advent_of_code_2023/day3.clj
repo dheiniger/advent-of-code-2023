@@ -5,8 +5,6 @@
 (def input (util/read-lines "input/day3/input.txt"))
 (def test-input (util/read-lines "input/day3/test.txt"))
 
-input
-
 (defn digit? [c]
   (Character/isDigit c))
 
@@ -35,7 +33,7 @@ input
     (first (map (fn[[x val]]
                   [x y val])
                 (filter #(= x (first %)) (nth grid y))))
-    (catch IndexOutOfBoundsException e nil)))
+    (catch IndexOutOfBoundsException e nil)));;ugly hack
 
 (defn- get-search-coords[x y]
   [[(dec x) y][(inc x) y]
@@ -53,7 +51,6 @@ input
                                          num-group)))
         search-vals (get-search-vals search-coords full-grid)]
     (some #(char-symbol? (last %)) search-vals)))
-
 
 (defn- get-digits-to-keep [input]
   (let [full-grid (make-full-grid input)
@@ -75,7 +72,6 @@ input
          (reduce +))))
 
 ;;part2
-
 (defn- gear-symbol? [c]
   (= \* c))
 
@@ -129,4 +125,4 @@ input
 
 (comment
   (time (solve input))
-  (time (solve-2 input))
+  (time (solve-2 input)))
