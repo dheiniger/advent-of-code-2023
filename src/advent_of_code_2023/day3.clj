@@ -101,13 +101,8 @@
           :when (not (empty? gear-positions))]
       gear-positions)))
 
-(defn- flatten-maps [&maps]
-  (reduce (fn[acc cand]
-            (concat acc cand))
-          &maps))
-
 (defn- find-gears [gear-candidates]
-  (let [ all-candidates  (flatten-maps gear-candidates)
+  (let [all-candidates (map #(apply merge %) gear-candidates)
         all-candidates (reduce (fn[acc cand]
                                  (if-let [existing (first (filter #(= (:xy cand) (:xy %)) acc))]
                                    (replace {existing (update-in existing [:num-group] conj (first(:num-group cand)))} acc)
